@@ -24,7 +24,28 @@
 <body>
 
 <div id="main-content" class="container">
-    <div id="hidden" class="hidden">
+
+    <div id="top-menu">
+        <span id="article">Articles</span>
+        <span id="pronoun">Pronouns</span>
+        <span id="verb">Verbs</span>
+        <span id="adjective">Adjectives</span>
+        <span id="noun">Nouns</span>
+    </div>
+
+    <div id="sub-menu"></div>
+    <div id="sub-menu2"></div>
+    <div id="primary-table"></div>
+
+    <div id="sentence">
+        <span class="word" data-type="pronoun">Wir</span>
+        <span class="word" data-type="verb" data-verbtype="verb-modal"
+              data-modaltype="verb-modal-wollen">wollten</span>
+        <span class="word" data-type="pronoun">dich</span>
+        <span class="word" data-type="verb" data-verbtype="verb-irregular">fragen</span>
+    </div>
+
+    <div id="hidden">
         <div id="verb-menu">
             <span id="verb-modal">modal</span>
             <span id="verb-regular">regular</span>
@@ -40,98 +61,60 @@
             <span id="verb-modal-wollen">wollen</span>
         </div>
 
-        <div class="guide">
-            <table id="pronouns-table">
-                <tr>
-                    <th>nominative</th>
-                    <td id="ich">ich</td>
-                    <td id="du">du</td>
-                    <td id="wir">wir</td>
-                    <td id="ihr">ihr</td>
-                    <td id="sie">sie</td>
-                </tr>
-                <tr>
-                    <th>accusative</th>
-                    <td>mich</td>
-                    <td id="dich">dich</td>
-                    <td>uns</td>
-                    <td>euch</td>
-                    <td>sie</td>
-                </tr>
-            </table>
-        </div>
+        <table id="pronouns-table" class="guide">
+            <tr>
+                <th>nominative</th>
+                <td id="ich">ich</td>
+                <td id="du">du</td>
+                <td id="wir">wir</td>
+                <td id="ihr">ihr</td>
+                <td id="sie">sie</td>
+            </tr>
+            <tr>
+                <th>accusative</th>
+                <td>mich</td>
+                <td id="dich">dich</td>
+                <td>uns</td>
+                <td>euch</td>
+                <td>sie</td>
+            </tr>
+        </table>
 
-        <div class="guide">
-            <table id="wollen-table">
-                <tr>
-                    <th></th>
-                    <th>ich</th>
-                    <th>du</th>
-                    <th>er/sie/es</th>
-                    <th>wir</th>
-                    <th>ihr</th>
-                    <th>sie</th>
-                </tr>
-                <tr>
-                    <th>Present</th>
-                    <td id="will">will</td>
-                    <td id="willst">willst</td>
-                    <td>will</td>
-                    <td id="wollen">wollen</td>
-                    <td id="wollt">wollt</td>
-                    <td>wollen</td>
-                </tr>
-                <tr>
-                    <th>Past</th>
-                    <td>wollte</td>
-                    <td>wolltest</td>
-                    <td>wollte</td>
-                    <td id="wollten">wollten</td>
-                    <td>wolltet</td>
-                    <td>wollten</td>
-                </tr>
-            </table>
-        </div>
+        <table id="wollen-table" class="guide">
+            <tr>
+                <th></th>
+                <th>ich</th>
+                <th>du</th>
+                <th>er/sie/es</th>
+                <th>wir</th>
+                <th>ihr</th>
+                <th>sie</th>
+            </tr>
+            <tr>
+                <th>Present</th>
+                <td id="will">will</td>
+                <td id="willst">willst</td>
+                <td>will</td>
+                <td id="wollen">wollen</td>
+                <td id="wollt">wollt</td>
+                <td>wollen</td>
+            </tr>
+            <tr>
+                <th>Past</th>
+                <td>wollte</td>
+                <td>wolltest</td>
+                <td>wollte</td>
+                <td id="wollten">wollten</td>
+                <td>wolltet</td>
+                <td>wollten</td>
+            </tr>
+        </table>
     </div>
-
-
-    <div id="top-menu">
-        <span id="pronoun">Pronouns</span>
-        <span id="verb">Verbs</span>
-        <span id="adjective">Adjectives</span>
-        <span id="noun">Nouns</span>
-    </div>
-
-    <div id="guide-div">
-        <div id="sub-menu"></div>
-
-        <div id="primary-table">
-
-        </div>
-    </div>
-
-
-    <span class="word" data-type="pronoun">Wir</span>
-    <span class="word" data-type="verb" data-verbtype="verb-modal" data-modaltype="verb-modal-wollen">wollten</span>
-    <span class="word" data-type="pronoun">dich</span>
-    <span class="word" data-type="verb" data-verbtype="verb-irregular">fragen</span>
 </div>
 </body>
 </html>
 
 <style>
-    .selected-word {
-        font-weight: bold;
-    }
-
-    .hidden {
-        display: none;
-    }
-
-    .highlighted-word{
-        text-decoration: underline;
-    }
-
     table {
         border: 1px solid black;
     }
@@ -146,16 +129,20 @@
         padding: 8px;
     }
 
-    .selected-verb-type {
+    .selected-word {
         font-weight: bold;
     }
 
-    #guide-div {
-        min-height: 400px;
+    .highlighted-word {
+        text-decoration: underline;
     }
 
-    #top-menu {
-        min-height: 50px;
+    .selected-modal-verb {
+        font-weight: bold;
+    }
+
+    .selected-verb-type {
+        font-weight: bold;
     }
 
     .selected-top-menu {
@@ -163,7 +150,19 @@
         opacity: 1;
     }
 
-    #sub-menu{
+    #hidden {
+        display: none;
+    }
+
+    #top-menu {
+        min-height: 50px;
+    }
+
+    #sub-menu {
         min-height: 100px;
+    }
+
+    #sub-menu2 {
+        min-height: 50px;
     }
 </style>
