@@ -15,72 +15,150 @@
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
     <link href="/index.css" rel="stylesheet">
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
 
     <script src="/index.js"></script>
 </head>
 <body>
 
-<table>
-    <tr>
-        <th>nominative</th>
-        <td id="ich">ich</td>
-        <td id="du">du</td>
-        <td id="wir">wir</td>
-        <td id="ihr">ihr</td>
-        <td id="sie">sie</td>
-    </tr>
-    <tr>
-        <th>accusative</th>
-        <td>mich</td>
-        <td id="dich">dich</td>
-        <td>uns</td>
-        <td>euch</td>
-        <td>sie</td>
-    </tr>
-</table>
+<div id="main-content" class="container">
+    <div id="staging" class="hidden">
+        <div id="verb-menu">
+            <span id="verb-modal">modal</span>
+            <span id="verb-regular">regular</span>
+            <span id="verb-irregular">irregular</span>
+        </div>
 
-<table>
-    <tr>
-        <th>Case</th>
-        <th>ich</th>
-        <th>du</th>
-        <th>er/sie/es</th>
-        <th>wir</th>
-        <th>ihr</th>
-        <th>Sie</th>
-    </tr>
-    <tr>
-        <th>Present</th>
-        <td id="will">will</td>
-        <td id="willst">willst</td>
-        <td>will</td>
-        <td id="wollen">wollen</td>
-        <td id="wollt">wollt</td>
-        <td>wollen</td>
-    </tr>
-    <tr>
-        <th>Past</th>
-        <td>wollte</td>
-        <td>wolltest</td>
-        <td>wollte</td>
-        <td id="wollten">wollten</td>
-        <td>wolltet</td>
-        <td>wollten</td>
-    </tr>
-</table>
+        <div id="modal-verbs">
+            <span id="verb-modal-durfen">dürfen</span>
+            <span id="verb-modal-konnen">können</span>
+            <span id="verb-modal-mogen">mögen</span>
+            <span id="verb-modal-mussen">müssen</span>
+            <span id="verb-modal-sollen">sollen</span>
+            <span id="verb-modal-wollen">wollen</span>
+        </div>
 
-<p id="highlighted"></p>
-<span class="word">Wir</span>
-<span class="word">wollten</span>
-<span class="word">dich</span>
-<span class="word">fragen</span>
+        <div class="guide">
+            <table id="pronouns-table">
+                <tr>
+                    <th>nominative</th>
+                    <td id="ich">ich</td>
+                    <td id="du">du</td>
+                    <td id="wir">wir</td>
+                    <td id="ihr">ihr</td>
+                    <td id="sie">sie</td>
+                </tr>
+                <tr>
+                    <th>accusative</th>
+                    <td>mich</td>
+                    <td id="dich">dich</td>
+                    <td>uns</td>
+                    <td>euch</td>
+                    <td>sie</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="guide">
+            <table id="wollen-table">
+                <tr>
+                    <th></th>
+                    <th>ich</th>
+                    <th>du</th>
+                    <th>er/sie/es</th>
+                    <th>wir</th>
+                    <th>ihr</th>
+                    <th>sie</th>
+                </tr>
+                <tr>
+                    <th>Present</th>
+                    <td id="will">will</td>
+                    <td id="willst">willst</td>
+                    <td>will</td>
+                    <td id="wollen">wollen</td>
+                    <td id="wollt">wollt</td>
+                    <td>wollen</td>
+                </tr>
+                <tr>
+                    <th>Past</th>
+                    <td>wollte</td>
+                    <td>wolltest</td>
+                    <td>wollte</td>
+                    <td id="wollten">wollten</td>
+                    <td>wolltet</td>
+                    <td>wollten</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+
+    <div id="top-menu">
+        <span id="pronoun">Pronouns</span>
+        <span id="verb">Verbs</span>
+        <span id="adjective">Adjectives</span>
+        <span id="noun">Nouns</span>
+    </div>
+
+    <div id="guide-div">
+        <div id="sub-menu"></div>
+
+        <div id="primary-table">
+
+        </div>
+    </div>
+
+
+    <span class="word" data-type="pronoun">Wir</span>
+    <span class="word" data-type="verb" data-verbtype="verb-modal" data-modaltype="verb-modal-wollen">wollten</span>
+    <span class="word" data-type="pronoun">dich</span>
+    <span class="word" data-type="verb" data-verbtype="verb-irregular">fragen</span>
+</div>
 </body>
 </html>
 
 <style>
     .selected-word {
         font-weight: bold;
+    }
+
+    .selected-type {
+        font-weight: bold;
+    }
+
+    .hidden {
+        display: none;
+    }
+
+    table {
+        border: 1px solid black;
+    }
+
+    th {
+        text-decoration: underline;
+        font-weight: normal;
+        padding: 8px;
+    }
+
+    td {
+        padding: 8px;
+    }
+
+    .selected-verb-type {
+        font-weight: bold;
+    }
+
+    #guide-div {
+        min-height: 400px;
+    }
+
+    #top-menu {
+        min-height: 50px;
+    }
+
+    #sub-menu{
+        min-height: 100px;
     }
 </style>
