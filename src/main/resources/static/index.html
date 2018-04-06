@@ -24,7 +24,7 @@
 <body>
 
 <div id="main-content" class="container">
-    <div id="staging" class="hidden">
+    <div id="hidden" class="hidden">
         <div id="verb-menu">
             <span id="verb-modal">modal</span>
             <span id="verb-regular">regular</span>
@@ -124,12 +124,12 @@
         font-weight: bold;
     }
 
-    .selected-type {
-        font-weight: bold;
-    }
-
     .hidden {
         display: none;
+    }
+
+    .highlighted-word{
+        text-decoration: underline;
     }
 
     table {
@@ -156,6 +156,11 @@
 
     #top-menu {
         min-height: 50px;
+    }
+
+    .selected-top-menu {
+        font-weight: bold;
+        opacity: 1;
     }
 
     #sub-menu{
