@@ -1,66 +1,158 @@
+jQuery.fn.extend({
+  addStaticClass: function(className) {
+    $("." + className).removeClass(className);
+    this.addClass(className);
+  }
+});
+
+function removeClass(classname){
+    $("." + className).removeClass(className);
+}
+
 var ui = {
-    setPrimaryTable: function (id) {
+    reset : function(){
+        $(".active").removeClass("active");
         $("#hidden").append($("#primary-table").children());
-        $("#primary-table").append($(id));
+        $("#hidden").append($("#sub1").children());
+        $("#hidden").append($("#sub2").children());
+    },
+
+    setSentence: function(value) {
+        $("#sentences").append($("#sentence").children());
+        $("#sentence").append(value);
+    },
+
+    setCategory: function (id) {
+        $("#" + id).addStaticClass("active-category");
     },
     setSubMenu1: function (id) {
-        $("#hidden").append($("#sub-menu").children());
-        $("#sub-menu").append($(id));
+        $("#sub1").append($("#" + id));
     },
     setSubMenu2: function (id) {
-        $("#hidden").append($("#sub-menu1").children());
-        $("#sub-menu1").append($(id));
-    }
+        $("#sub2").append($("#" + id));
+    },
+    setPrimaryTable: function (id) {
+        $("#primary-table").append($("#"+ id));
+    },
+
+    activatePronoun : function(){
+            ui.reset();
+            $("#pronoun").addClass("active");
+            $("#sub1").append($("#pronouns"));
+    },
+
+    activatePronounPersonal : function(){
+            ui.activatePronoun();
+            $("#pronouns-personal").addClass("active");
+            $("#sub1").append($("#pronouns-personal-table"));
+    },
+
+    activatePronounPersonalNominative : function(){
+            ui.activatePronounPersonal();
+            $("#pronouns-personal-cases-nominative").addClass("active");
+            $("#sub2").append($("#pronouns-personal-nominative"));
+    },
+
+    activatePronounPossessive : function(){
+            ui.activatePronoun();
+            $("#pronouns-possessive").addClass("active");
+            $("#sub1").append($("#pronouns-possessive-table"));
+    },
+
+    activateVerb : function(){
+            ui.reset();
+            $("#verb").addClass("active");
+            $("#sub1").append($("#verb-types"));
+    },
+
+    activateModal : function(){
+        ui.activateVerb();
+        $("#verb-modal").addClass("active");
+        $("#sub2").append($("#modal-verbs"));
+    },
+
+    activateModalWollen : function(){
+        ui.activateModal();
+        $("#verb-wollen").addClass("active");
+        $("#primary-table").append($("#wollen-table"));
+    },
+
+    activateWeakVerb : function(){
+        ui.activateVerb();
+        $("#verb-weak").addClass("active");
+        $("#sub2").append($("#accusative-verbs"));
+    },
+
+     activateStrongVerb : function(){
+        ui.activateVerb();
+        $("#verb-dative").addClass("active");
+        $("#sub2").append($("#dative-verbs"));
+     },
+
+     nextSentence: function(){
+         ui.setSentence($("#sentences").children()[0]);
+     }
 }
 
 $(document).ready(function () {
 
-
-    $("#pronoun").click(function () {
-        ui.setPrimaryTable("#pronouns-table")
+    $("span").click(function(){
+        var me = $(this);
+//        var ref = me.data('ref');
+//        if(ref != null){
+//            alert(ref);
+//        }
+        me.trigger("activate");
     });
-    $("#verb").click(function () {
-        ui.setSubMenu1("#verb-menu");
-        ui.setPrimaryTable("#wollen-table")
+
+    $( "span" ).on( "activate", function() {
+        $(this).addClass("active");
+    });
+
+    $( "span" ).on( "activateUp", function() {
+            $(this).addClass("active");
+    });
+
+    ui.nextSentence();
+    $("#verb").click(ui.activateVerb);
+
+    $("#verb").on("activate", function() {
+
+    });
+
+    $("#pronoun").click(ui.activatePronoun);
+
+    $("#pronouns-personal").click(ui.activatePronounPersonal);
+    $("#pronouns-possessive").click(ui.activatePronounPossessive);
+
+    $("#verb-modal").click(ui.activateModal);
+    $("#verb-weak").click(ui.activateWeakVerb);
+    $("#verb-dative").click(ui.activateStrongVerb);
+    $("#verb-wollen").click(ui.activateModalWollen);
+
+    $("#next-sentence-button").click(ui.nextSentence);
+
+    $("#pronouns-personal-cases-nominative").click(ui.activatePronounPersonalNominative);
+
+    $("#sentence-wir").click(ui.activatePronoun);
+    $("#sentence-wollten").click(function(){
+            ui.activateModalWollen();
+            $(this).addClass("active");
+            $("#wollen-table-wollten").addClass("active");
+    });
+
+    $("#willst").click(function(){
+        ui.setSentence($("#example-sentence-willst"));
+        $(this).addClass("active");
+    });
+
+    $("#wollen-table-wollten").click(function(){
+            ui.setSentence($("#example-sentence-wollten"));
+            $(this).addClass("active");
     });
 
     $('.word').on("mouseover", function () {
 
-        $(".selected-top-menu").removeClass("selected-top-menu");
-        $(".highlighted-word").removeClass("highlighted-word");
-        $(".selected-word").removeClass("selected-word");
-        $(".selected-modal-verb").removeClass("selected-modal-verb");
-        $("#hidden").append($("#primary-table").children());
-        $("#hidden").append($("#sub-menu").children());
-        $("#hidden").append($("#sub-menu2").children());
-
-        var hoveredWord = $(this).text();
-        $("#highlighted").text(hoveredWord);
-        var lowerCase = hoveredWord.toLowerCase();
-        var val = $("#" + lowerCase);
-        $(this).addClass("highlighted-word");
-        var type = $(this).data("type");
-        $("#" + type).addClass("selected-top-menu");
-
-        if (type == "verb") {
-            $("#sub-menu").append($("#verb-menu"));
-            var verbType = $(this).data("verbtype");
-            $(".selected-verb-type").removeClass("selected-verb-type");
-            $("#" + verbType).addClass("selected-verb-type")
-
-            if (verbType == "verb-modal") {
-                $("#sub-menu2").append($("#modal-verbs"));
-
-                var modelType = $(this).data("modaltype");
-                $("#" + modelType).addClass("selected-modal-verb");
-            }
-        }
-
-        if (val.length > 0) {
-            val.addClass("selected-word");
-            var table = val.closest(".guide");
-            $("#primary-table").append(table);
-        }
     });
 });
 

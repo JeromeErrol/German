@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>German Quiz</title>
+    <title>German</title>
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"
             integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
@@ -23,64 +23,82 @@
 </head>
 <body>
 
+
 <div id="main-content" class="container">
 
     <div id="top-menu">
-        <span id="article">Articles</span>
         <span id="pronoun">Pronouns</span>
         <span id="verb">Verbs</span>
-        <span id="adjective">Adjectives</span>
-        <span id="noun">Nouns</span>
     </div>
 
-    <div id="sub-menu"></div>
-    <div id="sub-menu2"></div>
-    <div id="primary-table"></div>
-
-    <div id="sentence">
-        <span class="word" data-type="pronoun">Wir</span>
-        <span class="word" data-type="verb" data-verbtype="verb-modal"
-              data-modaltype="verb-modal-wollen">wollten</span>
-        <span class="word" data-type="pronoun">dich</span>
-        <span class="word" data-type="verb" data-verbtype="verb-irregular">fragen</span>
-    </div>
+    <div id="sub1"></div>
+    <div id="sub2"></div>
+    <div id="sub3"></div>
+    <div id="sentence"></div>
+    <input type="button" id="next-sentence-button" value="next"/>
 
     <div id="hidden">
-        <div id="verb-menu">
-            <span id="verb-modal">modal</span>
-            <span id="verb-regular">regular</span>
-            <span id="verb-irregular">irregular</span>
+
+        <!--sub1-->
+        <div id="verb-types">
+            <span id="verb-modal">Modal</span>
+            <span id="verb-strong">Accusative</span>
+            <span id="verb-weak">Dative</span>
         </div>
 
+        <div id="pronouns">
+            <span id="pronouns-personal">Personal</span>
+            <span id="pronouns-possessive">Possessive</span>
+        </div>
+
+        <!--sub2-->
         <div id="modal-verbs">
-            <span id="verb-modal-durfen">dürfen</span>
-            <span id="verb-modal-konnen">können</span>
-            <span id="verb-modal-mogen">mögen</span>
-            <span id="verb-modal-mussen">müssen</span>
-            <span id="verb-modal-sollen">sollen</span>
-            <span id="verb-modal-wollen">wollen</span>
+            <span>dürfen</span>
+            <span>können</span>
+            <span>mögen</span>
+            <span>müssen</span>
+            <span>sollen</span>
+            <span id="verb-wollen">wollen</span>
+        </div>
+        <div id="accusative-verbs">
+            <span>run</span>
+            <span>jump</span>
+        </div>
+        <div id="dative-verbs">
+            <span>fragen</span>
         </div>
 
-        <table id="pronouns-table" class="guide">
+        // tables
+        <table id="pronouns-personal-table">
             <tr>
                 <th>nominative</th>
-                <td id="ich">ich</td>
-                <td id="du">du</td>
-                <td id="wir">wir</td>
-                <td id="ihr">ihr</td>
-                <td id="sie">sie</td>
+                <td>ich</td>
+                <td>du</td>
+                <td>wir</td>
+                <td>ihr</td>
+                <td id="pronouns-personal-nominative-sie">sie</td>
             </tr>
             <tr>
                 <th>accusative</th>
                 <td>mich</td>
-                <td id="dich">dich</td>
+                <td>dich</td>
                 <td>uns</td>
                 <td>euch</td>
                 <td>sie</td>
             </tr>
         </table>
 
-        <table id="wollen-table" class="guide">
+        <table id="pronouns-possessive-table">
+            <tr>
+                <td>mein</td>
+                <td>dein</td>
+                <td>sein</td>
+                <td>ihr</td>
+                <td>sie</td>
+            </tr>
+        </table>
+
+        <table id="wollen-table">
             <tr>
                 <th></th>
                 <th>ich</th>
@@ -104,11 +122,40 @@
                 <td>wollte</td>
                 <td>wolltest</td>
                 <td>wollte</td>
-                <td id="wollten">wollten</td>
+                <td id="wollen-table-wollten">wollten</td>
                 <td>wolltet</td>
                 <td>wollten</td>
             </tr>
         </table>
+
+        <table id="articles-table">
+            <tr>
+                <td>Der</td>
+                <td>Die</td>
+                <td>Das</td>
+            </tr>
+        </table>
+
+        <div id="sentences">
+            <div id="example-sentence-willst">
+                <span>Willst</span>
+                <span>du</span>
+                <span>gehen?</span>
+            </div>
+            <div id="example-sentence-wollten">
+                <span id="sentence-wir">Wir</span>
+                <span id="sentence-wollten">wollten</span>
+                <span id="sentence-dich">dich</span>
+                <span id="sentence-fragen">fragen</span>
+            </div>
+            <div>
+                <span>Hat</span>
+                <span data-ref="pronouns-personal-nominative-sie">sie</span>
+                <span>dir</span>
+                <span>das</span>
+                <span>gesagt?</span>
+            </div>
+        </div>
     </div>
 </div>
 </body>
@@ -129,6 +176,15 @@
         padding: 8px;
     }
 
+    .active-category {
+        font-weight: bold;
+        opacity: 1;
+    }
+
+    .active {
+        font-weight: bold;
+    }
+
     .selected-word {
         font-weight: bold;
     }
@@ -145,11 +201,6 @@
         font-weight: bold;
     }
 
-    .selected-top-menu {
-        font-weight: bold;
-        opacity: 1;
-    }
-
     #hidden {
         display: none;
     }
@@ -158,11 +209,14 @@
         min-height: 50px;
     }
 
-    #sub-menu {
+    #sub1 {
         min-height: 100px;
     }
 
-    #sub-menu2 {
-        min-height: 50px;
+    #sub2 {
+        min-height: 100px;
     }
+
+
+
 </style>
